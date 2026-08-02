@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chang-Yu Wu | Physics Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-main: #f5f5f5;
+            --text-sub: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --gold-glow: rgba(212, 175, 55, 0.4);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: url('background.png'); 
+            background-size: cover;        
+            background-position: center;     
+            background-repeat: no-repeat;    
+            background-attachment: fixed;    
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1; /* 讓 container 撐開，確保 footer 始終在最底部 */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* --- 頂部導覽列 --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            opacity: 0.7;
+            transition: opacity 0.2s, color 0.2s;
+            display: flex;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            color: #d4af37;
+        }
+
+        .social-links svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* --- 自介 --- */
+        #introduction {
+            margin-bottom: 50px;
+        }
+
+        #introduction p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 900px;
+        }
+
+        /* --- 專案區塊架構 --- */
+        .project-group {
+            margin-bottom: 50px;
+        }
+
+        .project-theme {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 0 5px 0;
+            letter-spacing: 0.5px;
+            border-left: 3px solid #d4af37;
+            padding-left: 10px;
+        }
+
+        .project-desc {
+            font-size: 1rem;
+            color: var(--text-sub);
+            margin: 0 0 20px 13px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        /* --- 小方塊按鈕設計 --- */
+        .sub-card {
+            display: block;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .sub-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .sub-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold-glow);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .sub-card:hover::before {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 100%);
+        }
+
+        .card-icon-top {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-icon-top svg {
+            width: 20px;
+            height: 20px;
+            stroke: #fff;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .sub-card:hover .card-icon-top {
+            opacity: 1;
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            z-index: 2;
+        }
+
+        .card-content h4 {
+            margin: 0 0 4px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #ccc;
+            line-height: 1.3;
+        }
+
+        /* --- 版權聲明 Footer --- */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: #1a1a1a; /* 加上深灰底色 */
+            border-top: 1px solid rgba(255, 255, 255, 0.05); /* 微調頂部邊線讓它更融合 */
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            width: 100%; /* 確保滿版寬度 */
+            box-sizing: border-box;
+        }
+
+        footer p {
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- 響應式設計 (Responsive Design) --- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding-bottom: 15px;
+            }
+
+            #introduction p {
+                font-size: 1rem;
+            }
+
+            .project-theme {
+                font-size: 1.25rem;
+            }
+
+            .sub-card {
+                aspect-ratio: 16 / 9; 
+            }
+            
+            @media (max-width: 480px) {
+                .resource-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Chang-Yu Wu</h1>
+            <div class="social-links">
+                <a href="https://github.com/wcu666" target="_blank" title="GitHub">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+                <a href="mailto://" target="_blank" title="Email">
+                    <svg viewBox="0 0 16 16"><path d="M1 3.5l.5-.5h13l.5.5v9l-.5.5h-13l-.5-.5v-9zm1 1.035V12h12V4.536L8.31 8.9H7.7L2 4.535zM13.03 4H2.97L8 7.869 13.03 4z"></path></svg>
+                </a>
+            </div>
+        </header>
+
+        <section id="introduction">
+            <p>
+                Hello! I'm Chang-Yu Wu, a sophomore majoring in Physics at National Chung Cheng University. 
+                I enjoy transforming theoretical physics concepts into interactive web simulators. 
+                This page documents my coursework, research projects, and science communication efforts.
+            </p>
+        </section>
+
+        <!-- 大型專案 1：膠帶黏滑現象 -->
+        <div class="project-group">
+            <h3 class="project-theme">Tape Stick-Slip Instability</h3>
+            <p class="project-desc">Investigating the influence of pulling speed on stripe pattern formation.</p>
+            
+            <div class="resource-grid">
+                <!-- 資源 1：模擬器 -->
+                <a href="https://wcu666.github.io/tape-dispenser-simulation/" class="sub-card" style="background-image: url('Tape/tape simulator.png');" target="_blank">
+                    <div class="card-icon-top"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+                    <div class="card-content">
+                        <h4>Simulator</h4>
+                        <p>Experimental process simulation</p>
+                    </div>
+                </a>
+
+                <!-- 資源 2：壁報 -->
+                <a href="#" class="sub-card" style="background-image: url('Tape/poster.png');" target="_blank">
+                    <div class="card-icon-top"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+                    <div class="card-content">
+                        <h4>2026 Conference Poster</h4>
+                        <p>Presented at the Joint Physics Education Meeting of ROC.</p>
+                    </div>
+                </a>
+
+                <!-- 資源 3：科普 -->
+                <a href="#" class="sub-card" style="background-image: url('Tape/tape sci.png');" target="_blank">
+                    <div class="card-icon-top"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+                    <div class="card-content">
+                        <h4>Sci-Comm</h4>
+                        <p>The hidden physics behind everyday adhesive tape.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="project-group">
+            <h3 class="project-theme">Other Explorations & Projects</h3>
+            <p class="project-desc">Standalone web simulators, educational platforms, and science communication articles.</p>
+            
+            <div class="resource-grid">
+                
+                <!-- 單一專案 1：Zebra Stripes -->
+                <a href="https://wcu666.github.io/Zebra-Reading-notes-on-academic-papers/" class="sub-card" style="background-image: url('Zebra/Zebra sci.png');" target="_blank">
+                    <div class="card-icon-top">
+                        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </div>
+                    <div class="card-content">
+                        <h4>Curvature-Driven Patterns</h4>
+                        <p>Sci-Comm Article</p>
+                    </div>
+                </a>
+
+                <!-- 單一專案 2：FIB -->
+                <a href="https://wcu666.github.io/Nanofab-Simulator/" class="sub-card" style="background-image: url('FIB/FIB Interactive Platform.png');" target="_blank">
+                    <div class="card-icon-top">
+                        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </div>
+                    <div class="card-content">
+                        <h4>FIB Technology</h4>
+                        <p>Interactive Educational Platform</p>
+                    </div>
+                </a>
+
+                <!--單一專案3：DOUBLE PENDULUM-->
+                <a href="https://wcu666.github.io/Double-Pendulum-Kinematics/" class="sub-card" style="background-image: url('Double pendulum/double pendulum simulator.png');" target="_blank">
+                    <div class="card-icon-top">
+                        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </div>
+                    <div class="card-content">
+                        <h4>Double Pendulum</h4>
+                        <p>Real-time chaotic simulation.</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+    </div> <!-- .container 結束 -->
+
+    <!-- 將 footer 移到 container 外側，達成滿版灰底效果 -->
+    <footer>
+        <p>&copy; 2026 Chang-Yu Wu. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
